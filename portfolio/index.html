@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dwiti | Data Scientist & Analyst</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: #2563eb;
+      --accent-light: #eff6ff;
+      --text-primary: #111827;
+      --text-secondary: #6b7280;
+      --border: #e5e7eb;
+      --bg: #ffffff;
+      --bg-soft: #f9fafb;
+      --radius: 12px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-primary);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-logo { font-weight: 700; font-size: 1.1rem; color: var(--text-primary); text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text-secondary); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── Hero ── */
+    #hero {
+      padding: 100px 5% 80px;
+      max-width: 900px; margin: 0 auto;
+    }
+    .hero-label {
+      display: inline-block;
+      background: var(--accent-light); color: var(--accent);
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 20px; margin-bottom: 1.5rem;
+    }
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 700; line-height: 1.18;
+      color: var(--text-primary); margin-bottom: 1.2rem;
+    }
+    h1 span { color: var(--accent); }
+    .hero-sub {
+      font-size: 1.1rem; color: var(--text-secondary);
+      max-width: 580px; margin-bottom: 2.2rem; line-height: 1.7;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 22px; border-radius: 8px;
+      font-size: 0.9rem; font-weight: 600; text-decoration: none; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+    .btn-outline { background: transparent; color: var(--text-primary); border: 1.5px solid var(--border); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Sections ── */
+    section { padding: 70px 5%; }
+    .section-inner { max-width: 900px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem;
+    }
+    h2 { font-size: 1.9rem; font-weight: 700; margin-bottom: 0.8rem; }
+    .section-divider { border: none; border-top: 1px solid var(--border); margin-bottom: 2.5rem; }
+
+    /* ── About ── */
+    #about { background: var(--bg-soft); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .about-text p { color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.98rem; line-height: 1.75; }
+    .skills-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.4rem; }
+    .skill-tag {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 6px; padding: 5px 12px;
+      font-size: 0.8rem; font-weight: 500; color: var(--text-secondary);
+    }
+    .about-stats { display: flex; flex-direction: column; gap: 1.2rem; }
+    .stat-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.4rem 1.6rem;
+    }
+    .stat-number { font-size: 2rem; font-weight: 700; color: var(--accent); }
+    .stat-desc { font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.2rem; }
+
+    /* ── Projects ── */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.4rem; }
+    .project-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.8rem;
+      box-shadow: var(--shadow); transition: all 0.25s;
+      display: flex; flex-direction: column;
+      text-decoration: none; color: inherit;
+    }
+    .project-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.1); border-color: var(--accent); }
+    .card-type {
+      font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--accent); margin-bottom: 0.8rem;
+    }
+    .card-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; line-height: 1.35; }
+    .card-desc { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.65; flex: 1; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.2rem; }
+    .card-tag {
+      background: var(--accent-light); color: var(--accent);
+      font-size: 0.72rem; font-weight: 600;
+      padding: 3px 9px; border-radius: 4px;
+    }
+    .card-footer {
+      margin-top: 1.4rem; padding-top: 1rem; border-top: 1px solid var(--border);
+      font-size: 0.82rem; font-weight: 600; color: var(--accent);
+      display: flex; align-items: center; gap: 5px;
+    }
+    .card-wip { background: #fef9c3; color: #854d0e; }
+    .card-tag-wip { background: #fef9c3; color: #854d0e; font-size: 0.72rem; font-weight: 600; padding: 3px 9px; border-radius: 4px; }
+
+    /* ── Contact ── */
+    #contact { background: var(--bg-soft); }
+    .contact-box {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2.5rem 2rem;
+      text-align: center; max-width: 540px; margin: 0 auto;
+    }
+    .contact-box p { color: var(--text-secondary); margin-bottom: 1.8rem; font-size: 0.95rem; }
+    .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center; padding: 2rem 5%;
+      border-top: 1px solid var(--border);
+      font-size: 0.82rem; color: var(--text-secondary);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      nav { padding: 0 4%; }
+      .nav-links { gap: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <a href="#hero" class="nav-logo">Dwiti</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-label">Available for new opportunities</div>
+    <h1>Senior Data Scientist<br />&amp; <span>Analyst</span></h1>
+    <p class="hero-sub">
+      I turn messy real-world data into decisions that stick — building end-to-end pipelines,
+      predictive models, and analytics platforms that people actually use.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">View My Work →</a>
+      <a href="https://www.linkedin.com/in/YOUR-LINKEDIN" target="_blank" class="btn btn-outline">LinkedIn</a>
+      <a href="https://github.com/YOUR-GITHUB" target="_blank" class="btn btn-outline">GitHub</a>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="section-inner">
+      <p class="section-label">About</p>
+      <h2>The person behind the data</h2>
+      <hr class="section-divider" />
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            I'm a data scientist with hands-on experience across the full analytics stack —
+            from building lakehouse pipelines on Azure to deploying Power BI dashboards used
+            by operational teams daily.
+          </p>
+          <p>
+            My work spans the facilities management, energy, and tech sectors. I'm drawn to
+            problems where data is imperfect, context is complex, and the answer genuinely changes
+            how a business moves.
+          </p>
+          <p>
+            Outside of work I write about data science on Substack, focusing on the craft and
+            decisions behind real analyses.
+          </p>
+          <div class="skills-list">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">Azure Data Factory</span>
+            <span class="skill-tag">Power BI</span>
+            <span class="skill-tag">Machine Learning</span>
+            <span class="skill-tag">NLP</span>
+            <span class="skill-tag">Time Series</span>
+            <span class="skill-tag">Lakehouse Architecture</span>
+            <span class="skill-tag">Forecasting</span>
+          </div>
+        </div>
+        <div class="about-stats">
+          <div class="stat-card">
+            <div class="stat-number">10+</div>
+            <div class="stat-desc">Years building data products end-to-end</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">3</div>
+            <div class="stat-desc">Industries: Facilities, Energy, Tech</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">1</div>
+            <div class="stat-desc">Award-winning production analytics platform</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects">
+    <div class="section-inner">
+      <p class="section-label">Work</p>
+      <h2>Case Studies &amp; Projects</h2>
+      <hr class="section-divider" />
+      <div class="projects-grid">
+
+        <!-- Case Study 1: NPS Platform -->
+        <a href="case-studies/nps-platform.html" class="project-card">
+          <div class="card-type">Case Study</div>
+          <div class="card-title">NPS Intelligence Platform</div>
+          <div class="card-desc">
+            Award-winning production platform that transformed raw customer satisfaction data
+            into actionable operational intelligence — connecting 50k+ survey responses
+            to service outcomes across multiple service lines.
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">NLP</span>
+            <span class="card-tag">Azure</span>
+            <span class="card-tag">Power BI</span>
+            <span class="card-tag">Python</span>
+          </div>
+          <div class="card-footer">Read case study →</div>
+        </a>
+
+        <!-- Case Study 2: Energy Forecasting -->
+        <a href="case-studies/energy-forecasting.html" class="project-card">
+          <div class="card-type">Project</div>
+          <div class="card-title">Fuel Shock Forecasting</div>
+          <div class="card-desc">
+            End-to-end forecasting pipeline for global energy price shocks, using geopolitical
+            disruption signals from IEA, World Bank, and UN Comtrade data — from EDA
+            through to a deployed dashboard.
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">Time Series</span>
+            <span class="card-tag">Forecasting</span>
+            <span class="card-tag">Python</span>
+            <span class="card-tag-wip">In Progress</span>
+          </div>
+          <div class="card-footer">View project →</div>
+        </a>
+
+        <!-- Add more project cards below. Copy the block above and update the details. -->
+        <!-- You can link GitHub repos directly: href="https://github.com/YOUR-USERNAME/repo" -->
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="section-inner">
+      <p class="section-label">Contact</p>
+      <h2>Let's connect</h2>
+      <hr class="section-divider" />
+      <div class="contact-box">
+        <p>
+          I'm currently open to senior data scientist and analyst roles.
+          If you're working on an interesting problem, I'd love to hear about it.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:dwiti295@gmail.com" class="btn btn-primary">dwiti295@gmail.com</a>
+          <a href="https://www.linkedin.com/in/YOUR-LINKEDIN" target="_blank" class="btn btn-outline">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 Dwiti · Built with HTML &amp; CSS · Hosted on GitHub Pages</p>
+  </footer>
+
+</body>
+</html>
