@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fuel Shock Forecasting | Dwiti</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #2563eb; --accent-light: #eff6ff;
+      --text-primary: #111827; --text-secondary: #6b7280;
+      --border: #e5e7eb; --bg: #ffffff; --bg-soft: #f9fafb;
+      --radius: 12px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text-primary); background: var(--bg); line-height: 1.6; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between; height: 60px;
+    }
+    .nav-logo { font-weight: 700; font-size: 1rem; color: var(--text-primary); text-decoration: none; }
+    .nav-back { text-decoration: none; font-size: 0.88rem; color: var(--text-secondary); display: flex; align-items: center; gap: 5px; transition: color 0.2s; }
+    .nav-back:hover { color: var(--accent); }
+
+    .cs-hero { padding: 70px 5% 50px; max-width: 820px; margin: 0 auto; border-bottom: 1px solid var(--border); }
+    .cs-label { display: inline-block; background: #fef9c3; color: #92400e; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; margin-bottom: 1.2rem; }
+    .cs-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; line-height: 1.2; margin-bottom: 1rem; }
+    .cs-summary { font-size: 1.05rem; color: var(--text-secondary); max-width: 640px; line-height: 1.75; margin-bottom: 1.8rem; }
+    .cs-meta { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+    .meta-item { font-size: 0.85rem; }
+    .meta-label { font-weight: 600; color: var(--text-secondary); text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.06em; }
+    .meta-value { color: var(--text-primary); margin-top: 2px; }
+
+    .cs-body { max-width: 820px; margin: 0 auto; padding: 50px 5% 80px; }
+    .cs-body h2 { font-size: 1.4rem; font-weight: 700; margin: 2.8rem 0 0.8rem; }
+    .cs-body h3 { font-size: 1.05rem; font-weight: 600; margin: 1.8rem 0 0.5rem; }
+    .cs-body p { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.8; margin-bottom: 1rem; }
+    .cs-body ul { margin: 0.6rem 0 1rem 1.2rem; }
+    .cs-body ul li { color: var(--text-secondary); font-size: 0.97rem; line-height: 1.75; margin-bottom: 0.4rem; }
+
+    .callout { background: var(--accent-light); border-left: 3px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; padding: 1.2rem 1.5rem; margin: 1.5rem 0; }
+    .callout p { color: var(--text-primary); font-weight: 500; margin: 0; }
+    .callout-wip { background: #fef9c3; border-left-color: #d97706; }
+    .callout-wip p { color: #92400e; }
+
+    .phase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+    .phase-card { background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.3rem 1.2rem; }
+    .phase-num { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 0.4rem; }
+    .phase-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.3rem; }
+    .phase-status { font-size: 0.78rem; color: var(--text-secondary); }
+    .status-done { color: #16a34a; font-weight: 600; }
+    .status-wip { color: #d97706; font-weight: 600; }
+    .status-todo { color: var(--text-secondary); }
+
+    .stack-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.8rem 0 1rem; }
+    .stack-tag { background: var(--bg-soft); border: 1px solid var(--border); border-radius: 6px; padding: 5px 14px; font-size: 0.82rem; font-weight: 500; color: var(--text-secondary); }
+
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; border-radius: 8px; font-size: 0.88rem; font-weight: 600; text-decoration: none; transition: all 0.2s; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-outline { background: transparent; color: var(--text-primary); border: 1.5px solid var(--border); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .cs-nav { display: flex; justify-content: space-between; align-items: center; padding: 2rem 0; border-top: 1px solid var(--border); margin-top: 3rem; }
+    footer { text-align: center; padding: 2rem 5%; border-top: 1px solid var(--border); font-size: 0.82rem; color: var(--text-secondary); }
+    @media (max-width: 640px) { .phase-grid { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="../index.html" class="nav-logo">Dwiti</a>
+    <a href="../index.html" class="nav-back">← Back to portfolio</a>
+  </nav>
+
+  <div class="cs-hero">
+    <span class="cs-label">Project · In Progress</span>
+    <h1 class="cs-title">Fuel Shock Forecasting</h1>
+    <p class="cs-summary">
+      An end-to-end pipeline for detecting and forecasting global energy price shocks —
+      using geopolitical disruption signals, supply data, and macroeconomic indicators
+      to build a deployable forecasting model with an interactive dashboard.
+    </p>
+    <div class="cs-meta">
+      <div class="meta-item">
+        <div class="meta-label">Domain</div>
+        <div class="meta-value">Energy / Geopolitics</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Stack</div>
+        <div class="meta-value">Python · Time Series · Forecasting</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Status</div>
+        <div class="meta-value">🔄 In active development</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cs-body">
+
+    <div class="callout callout-wip">
+      <p>⚙️ This project is in active development. This page documents the approach, data sources, and progress to date. Full write-up coming once the dashboard is deployed.</p>
+    </div>
+
+    <h2>Why This Problem</h2>
+    <p>
+      Energy price shocks — sudden, sharp disruptions to global oil and gas prices — have
+      historically been driven by a combination of supply constraints, geopolitical events,
+      and demand dynamics. Most forecasting models treat price as a purely financial series.
+      This project asks: <em>can integrating geopolitical disruption signals improve our
+      ability to detect shocks before they fully materialise?</em>
+    </p>
+    <p>
+      The framing is practical: a business that imports goods, operates logistics, or manages
+      facilities energy contracts needs to anticipate price moves, not just react to them.
+    </p>
+
+    <h2>Project Phases</h2>
+    <div class="phase-grid">
+      <div class="phase-card">
+        <div class="phase-num">Phase 1</div>
+        <div class="phase-name">Problem Framing</div>
+        <div class="phase-status status-done">✓ Complete</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">Phase 2</div>
+        <div class="phase-name">Data Pipeline</div>
+        <div class="phase-status status-done">✓ Complete</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">Phase 3</div>
+        <div class="phase-name">EDA</div>
+        <div class="phase-status status-wip">🔄 In Progress</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">Phase 4</div>
+        <div class="phase-name">Feature Engineering</div>
+        <div class="phase-status status-todo">Upcoming</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">Phase 5</div>
+        <div class="phase-name">Modelling</div>
+        <div class="phase-status status-todo">Upcoming</div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">Phase 6</div>
+        <div class="phase-name">Dashboard Deployment</div>
+        <div class="phase-status status-todo">Upcoming</div>
+      </div>
+    </div>
+
+    <h2>Data Sources</h2>
+    <p>The pipeline ingests data from four primary sources:</p>
+    <ul>
+      <li><strong>IEA</strong> — monthly energy supply, production, and consumption data by country and fuel type</li>
+      <li><strong>World Bank API</strong> — macroeconomic indicators including GDP growth, inflation, and commodity price indices</li>
+      <li><strong>UN Comtrade</strong> — bilateral trade flows for energy commodities, used to map supply chain dependencies</li>
+      <li><strong>Our World in Data / BP Statistical Review</strong> — long-run historical price series and energy mix data for context and baseline modelling</li>
+    </ul>
+
+    <h2>Approach</h2>
+    <h3>Signal Design</h3>
+    <p>
+      The core hypothesis is that geopolitical disruptions leave detectable footprints in trade
+      flow data (UN Comtrade) and supply figures (IEA) before they fully propagate to consumer
+      prices. The pipeline calculates a set of "disruption signals" — deviations from rolling
+      baselines across key producer-exporter pairs.
+    </p>
+
+    <h3>Modelling Strategy</h3>
+    <p>
+      The plan is to compare a baseline ARIMA/SARIMA model (price series only) against an
+      augmented model (ARIMAX or gradient-boosted) that incorporates the disruption signals
+      as exogenous features. The evaluation metric will be directional accuracy on shock
+      detection, not just RMSE — because being right about the direction matters more than
+      precise magnitude for the target use case.
+    </p>
+
+    <h2>Tech Stack</h2>
+    <div class="stack-list">
+      <span class="stack-tag">Python</span>
+      <span class="stack-tag">pandas</span>
+      <span class="stack-tag">statsmodels</span>
+      <span class="stack-tag">scikit-learn</span>
+      <span class="stack-tag">XGBoost</span>
+      <span class="stack-tag">World Bank API</span>
+      <span class="stack-tag">UN Comtrade API</span>
+      <span class="stack-tag">Plotly / Dash</span>
+    </div>
+
+    <h2>GitHub Repository</h2>
+    <p>
+      The code is publicly available. Work in progress — expect frequent commits during the
+      EDA and feature engineering phases.
+    </p>
+    <a href="https://github.com/YOUR-GITHUB/fuel-shock-forecasting" target="_blank" class="btn btn-primary" style="margin-top: 0.5rem; display: inline-flex;">View on GitHub →</a>
+
+    <div class="cs-nav">
+      <a href="nps-platform.html" class="btn btn-outline">← Previous project</a>
+      <a href="../index.html" class="btn btn-outline">All projects</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>© 2026 Dwiti · <a href="../index.html" style="color: var(--accent); text-decoration: none;">Portfolio</a></p>
+  </footer>
+
+</body>
+</html>
